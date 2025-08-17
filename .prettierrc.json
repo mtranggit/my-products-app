@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc.json",
+  "tabWidth": 2,
+  "printWidth": 120,
+  "semi": true,
+  "useTabs": false,
+  "singleQuote": false,
+  "jsxSingleQuote": false,
+  "bracketSpacing": false,
+  "endOfLine": "auto",
+  "arrowParens": "always",
+  "trailingComma": "all",
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^(react/(.*)$)|^(react$)",
+    "^next",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^[./]",
+    "^[a-z]",
+    "^@?\\w",
+    "^@components/(.*)$",
+    "^@hooks/(.*)$",
+    "^@utils/(.*)$",
+    "^@styles/(.*)$"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseSensitive": false
+}
