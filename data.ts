@@ -73,12 +73,12 @@ export async function waitFor(delay: number) {
 
 export async function fetchFilteredProducts(query: string, type: string): Promise<Product[]> {
   // Simulate delay for 3 seconds
-  await waitFor(3);
+  await waitFor(1);
 
   // throw Error("Error");
 
-  const result = PRODUCTS.filter((p) => p.productName.includes(query)).filter((p) =>
-    type !== "" ? p.type.toLowerCase() === type.toLowerCase() : true,
+  const result = PRODUCTS.filter((p) => p.productName.toLocaleLowerCase().includes(query.toLocaleLowerCase())).filter(
+    (p) => (type !== "" ? p.type.toLowerCase() === type.toLowerCase() : true),
   );
 
   return result;
