@@ -81,5 +81,5 @@ export async function fetchFilteredProducts(query: string, type: string): Promis
     (p) => (type !== "" ? p.type.toLowerCase() === type.toLowerCase() : true),
   );
 
-  return result;
+  return Promise.resolve(result);
 }

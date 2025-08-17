@@ -10,10 +10,7 @@ export function SearchInput({
   onSearch: (value: string) => void;
 }) {
   const handleSearch = useDebouncedCallback((value: string) => {
-    // console.log(value);
-    if (value) {
-      onSearch(value);
-    }
+    onSearch(value);
   }, 300);
 
   return (
