@@ -1,45 +1,27 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 import {fetchFilteredProducts} from "../data";
-import type {Product} from "../types";
 import {FilterInput} from "./FilterInput";
 import {SearchInput} from "./SearchInput";
+import {QueryClient, QueryClientProvider, useQuery} from "@tanstack/react-query";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
-function App() {
+const queryClient = new QueryClient();
+
+function ProductsApp() {
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let ignore = false;
-    const fetching = async () => {
-      setProducts([]);
-      setIsLoading(true);
-      setError(null);
-      try {
-        const response = await fetchFilteredProducts(query, type);
-        if (ignore) {
-          return;
-        }
+  const {
+    data: products,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["products", {type, query}],
+    queryFn: () => fetchFilteredProducts(query, type),
+  });
 
-        setProducts(response);
-        setIsLoading(false);
-        setError(null);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (e) {
-        setError("Unable to fetch products");
-        setIsLoading(false);
-      }
-      return () => {
-        ignore = true;
-      };
-    };
-    fetching();
-  }, [query, type]);
-
-  if (isLoading) {
+  if (isPending) {
     return <p>Loading...</p>;
   }
 
@@ -53,7 +35,6 @@ function App() {
       <FilterInput value={type} onFilter={(value) => setType(value)} />
       {products.length > 0 &&
         products.map((product) => (
-          // {PRODUCTS.map((product) => (
           <div key={product.index}>
             <img alt={product.productName} src={`assets/${product.productImage}`} className="" />
             <p>Name: {product.productName}</p>
@@ -65,4 +46,11 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ProductsApp />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
+}
