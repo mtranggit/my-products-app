@@ -1,4 +1,6 @@
-export const PRODUCTS = [
+import type {Product} from "./types";
+
+export const PRODUCTS: Product[] = [
   {
     index: 0,
     isSale: false,
@@ -64,3 +66,20 @@ export const PRODUCTS = [
     type: "Cider",
   },
 ];
+
+export async function waitFor(delay: number) {
+  await new Promise((resolve) => setTimeout(resolve, delay * 1000));
+}
+
+export async function fetchFilteredProducts(query: string, type: string): Promise<Product[]> {
+  // Simulate delay for 3 seconds
+  await waitFor(3);
+
+  // throw Error("Error");
+
+  const result = PRODUCTS.filter((p) => p.productName.includes(query)).filter((p) =>
+    type !== "" ? p.type.toLowerCase() === type.toLowerCase() : true,
+  );
+
+  return result;
+}
