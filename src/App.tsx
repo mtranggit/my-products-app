@@ -1,7 +1,9 @@
 import {useEffect, useState} from "react";
 
-import {fetchFilteredProducts, PRODUCTS} from "../data";
+import {fetchFilteredProducts} from "../data";
 import type {Product} from "../types";
+import {FilterInput} from "./FilterInput";
+import {SearchInput} from "./SearchInput";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -25,6 +27,7 @@ function App() {
         setProducts(response);
         setIsLoading(false);
         setError(null);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (e) {
         setError("Unable to fetch products");
         setIsLoading(false);
@@ -46,6 +49,8 @@ function App() {
 
   return (
     <>
+      <SearchInput placeholder="Enter product name" term={query} onSearch={(term) => setQuery(term)} />
+      <FilterInput value={type} onFilter={(value) => setType(value)} />
       {products.length > 0 &&
         products.map((product) => (
           // {PRODUCTS.map((product) => (
