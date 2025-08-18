@@ -1,3 +1,5 @@
+import styles from "./FilterInput.module.css";
+
 export function FilterInput({
   label = "Filter",
   value,
@@ -11,8 +13,8 @@ export function FilterInput({
     onFilter(value);
   };
   return (
-    <div>
-      {label}:
+    <label>
+      <span className={styles.label}>{label}:</span>
       <select value={value} onChange={(e) => handleFilter(e.target.value)}>
         <option value="">All</option>
         <option value="beer">Beer</option>
@@ -20,6 +22,6 @@ export function FilterInput({
         <option value="spirits">Spirits</option>
         <option value="cider">Cider</option>
       </select>
-    </div>
+    </label>
   );
 }

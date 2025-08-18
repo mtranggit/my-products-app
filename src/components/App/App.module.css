@@ -25,3 +25,22 @@
 	align-items: baseline;
 	gap: 16px;
 }
+
+@media (max-width: 1300px) {
+	/* laptop and smaller */
+
+}
+
+@media (max-width: 900px) {
+
+	/* tablet and smaller */
+	.header,
+	.search_filter {
+		flex-direction: column;
+	}
+
+}
+
+@media (max-width: 600px) {
+	/* phone and smaller */
+}
