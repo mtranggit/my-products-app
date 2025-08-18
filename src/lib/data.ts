@@ -72,8 +72,8 @@ export async function waitFor(delay: number) {
 }
 
 export async function fetchFilteredProducts(query: string, type: string): Promise<Product[]> {
-  // Simulate delay for 3 seconds
-  await waitFor(3);
+  const randomNumber = Math.floor(Math.random() * 3) + 1; // random delay between 1 and 3 sec
+  await waitFor(randomNumber);
 
   // throw Error("Error");
 
