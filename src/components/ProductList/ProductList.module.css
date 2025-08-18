@@ -1,0 +1,11 @@
+.product_container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 32px;
+}
+
+.product_wrapper {
+	min-width: 275px;
+	max-width: 275px;
+	flex: 1;
+}

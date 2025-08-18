@@ -1,0 +1,42 @@
+.product_wrapper {
+	text-decoration: none;
+	color: inherit;
+}
+
+.product_card {
+	position: relative;
+}
+
+.image_wrapper {
+	position: relative;
+}
+
+.product_image {
+	width: 100%;
+	border-radius: 16px 16px 4px 4px;
+}
+
+.on_sale {
+	position: absolute;
+	top: 12px;
+	left: -4px;
+	background: red;
+	height: 32px;
+	line-height: 32px;
+	padding: 0 10px;
+	font-size: 0.78rem;
+	font-weight: bold;
+	color: white;
+	border-radius: 2px;
+}
+
+.name_and_price {
+	display: flex;
+	justify-content: space-between;
+	font-size: 1rem;
+	margin-top: 12px;
+}
+
+.name {
+	font-weight: 600;
+}

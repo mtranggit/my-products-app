@@ -11,7 +11,7 @@ export function SearchInput({
 }) {
   const handleSearch = useDebouncedCallback((value: string) => {
     onSearch(value);
-  }, 300);
+  }, 300); // only callback stop typing for 300ms
 
   return (
     <div>
