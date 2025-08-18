@@ -1,4 +1,3 @@
-import type {Product} from "../../../types";
 import {useFetchFilteredProduct} from "../../hooks";
 import {ProductCard} from "../ProductCard";
 import {ProductListSkeleton} from "../Skeletons";

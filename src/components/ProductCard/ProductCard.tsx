@@ -14,9 +14,9 @@ export function ProductCard({name, imageSrc, price, isSale}: ProductCardProps) {
   return (
     <a href={`/products/${slug}`} className={styles.product_wrapper}>
       <article className={styles.product_card}>
-        <div className="image_wrapper">
+        <div className={styles.image_wrapper}>
           {isSale && <div className={styles.on_sale}>Sale</div>}
-          <img alt={name} src={`/assets/${imageSrc}`} className={styles.product_image} />
+          <img alt={name} src={`/assets/${imageSrc}`} className={`${styles.product_image} skeleton`} />
         </div>
         <div className={styles.name_and_price}>
           <h3 className={styles.name}>{name}</h3>
