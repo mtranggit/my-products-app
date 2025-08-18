@@ -1,12 +1,29 @@
 import type {Product} from "../../../types";
+import {useFetchFilteredProduct} from "../../hooks";
 import {ProductCard} from "../ProductCard";
+import {ProductListSkeleton} from "../Skeletons";
 import styles from "./ProductList.module.css";
 
 interface ProductListProps {
-  products?: Product[];
+  query?: string;
+  type?: string;
 }
 
-export function ProductList({products = []}: ProductListProps) {
+export function ProductList({query = "", type = ""}: ProductListProps) {
+  const {data: products, isPending, error} = useFetchFilteredProduct(query, type);
+
+  if (isPending) {
+    return (
+      <main className={styles.main_wrapper} data-testid="skeleton-loading">
+        <ProductListSkeleton />
+      </main>
+    );
+  }
+
+  if (error) {
+    return <div data-testid="error">{`Something went wrong: ${error}`}</div>;
+  }
+
   return (
     <div className={styles.product_container}>
       {products.length > 0 &&
