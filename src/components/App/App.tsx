@@ -19,7 +19,7 @@ function ProductsApp() {
         <header className={styles.header}>
           <div className={styles.title}>Products</div>
           <div className={styles.search_filter}>
-            <SearchInput placeholder="Enter product name" term={query} onSearch={(term) => setQuery(term)} />
+            <SearchInput placeholder="Search product name" term={query} onSearch={(term) => setQuery(term)} />
             <FilterInput value={type} onFilter={(value) => setType(value)} />
           </div>
         </header>
