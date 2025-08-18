@@ -33,15 +33,22 @@ function ProductsApp() {
     <>
       <SearchInput placeholder="Enter product name" term={query} onSearch={(term) => setQuery(term)} />
       <FilterInput value={type} onFilter={(value) => setType(value)} />
-      {products.length > 0 &&
-        products.map((product) => (
-          <div key={product.index}>
-            <img alt={product.productName} src={`assets/${product.productImage}`} className="" />
-            <p>Name: {product.productName}</p>
-            <p>Price: {product.price}</p>
-          </div>
-        ))}
-      {!products.length && <p>No products found</p>}
+      <main className="main">
+        <div className="product-container">
+          {products.length > 0 &&
+            products.map((product) => (
+              <div className="product-wrapper" key={product.index}>
+                <div className="product-card">
+                  {product.isSale && <div className="on-sale">Sale</div>}
+                  <img alt={product.productName} src={`assets/${product.productImage}`} className="" />
+                  <p>Name: {product.productName}</p>
+                  <p>Price: {product.price}</p>
+                </div>
+              </div>
+            ))}
+          {!products.length && <p>No products found</p>}
+        </div>
+      </main>
     </>
   );
 }

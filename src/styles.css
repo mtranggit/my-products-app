@@ -4,3 +4,37 @@ body {
 	margin: 0;
 	background-color: #f4f4f4;
 }
+
+.main {
+	padding: 64px 32px;
+}
+
+.product-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 32px;
+}
+
+.product-wrapper {
+	min-width: 275px;
+	max-width: 275px;
+	flex: 1;
+}
+
+.product-card {
+	position: relative;
+}
+
+.on-sale {
+	position: absolute;
+	top: 12px;
+	left: -4px;
+	background: red;
+	height: 32px;
+	line-height: 32px;
+	padding: 0 10px;
+	font-size: 0.78rem;
+	font-weight: bold;
+	color: white;
+	border-radius: 2px;
+}
