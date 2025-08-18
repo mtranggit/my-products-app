@@ -13,9 +13,9 @@ export function FilterInput({
     onFilter(value);
   };
   return (
-    <label>
+    <label htmlFor="select_category">
       <span className={styles.label}>{label}:</span>
-      <select value={value} onChange={(e) => handleFilter(e.target.value)}>
+      <select id="select_category" value={value} onChange={(e) => handleFilter(e.target.value)}>
         <option value="">All</option>
         <option value="beer">Beer</option>
         <option value="wine">Wine</option>

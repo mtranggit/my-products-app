@@ -1,3 +1,4 @@
+import styles from "./SearchInput.module.css";
 import {useDebouncedCallback} from "use-debounce";
 
 export function SearchInput({
@@ -15,7 +16,10 @@ export function SearchInput({
 
   return (
     <div>
-      <input defaultValue={term} placeholder={placeholder} onChange={(e) => handleSearch(e.target.value)} />
+      <label htmlFor="search" className={styles.visually_hidden}>
+        Search:
+      </label>
+      <input id="search" defaultValue={term} placeholder={placeholder} onChange={(e) => handleSearch(e.target.value)} />
     </div>
   );
 }
