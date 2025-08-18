@@ -4,6 +4,7 @@ import {useFetchFilteredProduct} from "../../hooks";
 import {FilterInput} from "../FilterInput";
 import {ProductList} from "../ProductList";
 import {SearchInput} from "../SearchInput";
+import {ListingHeaderSkeleton, ProductCardSkeleton, ProductListSkeleton} from "../Skeletons";
 import styles from "./App.module.css";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
@@ -17,7 +18,12 @@ function ProductsApp() {
   const {data: products, isPending, error} = useFetchFilteredProduct(query, type);
 
   if (isPending) {
-    return <p>Loading...</p>;
+    return (
+      <main className={styles.main_wrapper}>
+        <ListingHeaderSkeleton />
+        <ProductListSkeleton />
+      </main>
+    );
   }
 
   if (error) {

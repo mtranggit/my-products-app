@@ -3,10 +3,10 @@ import {ProductCard} from "../ProductCard";
 import styles from "./ProductList.module.css";
 
 interface ProductListProps {
-  products: Product[];
+  products?: Product[];
 }
 
-export function ProductList({products}: ProductListProps) {
+export function ProductList({products = []}: ProductListProps) {
   return (
     <div className={styles.product_container}>
       {products.length > 0 &&
