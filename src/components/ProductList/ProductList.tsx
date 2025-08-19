@@ -1,15 +1,14 @@
 import {useFetchFilteredProduct} from "../../hooks";
+import {useProductsStore} from "../../store/productsStore";
 import {ProductCard} from "../ProductCard";
 import {ProductListSkeleton} from "../Skeletons";
 import styles from "./ProductList.module.css";
 
-interface ProductListProps {
-  query?: string;
-  type?: string;
-}
+export function ProductList() {
+  const name = useProductsStore((state) => state.name);
+  const type = useProductsStore((state) => state.type);
 
-export function ProductList({query = "", type = ""}: ProductListProps) {
-  const {data: products, isPending, error} = useFetchFilteredProduct(query, type);
+  const {data: products, isPending, error} = useFetchFilteredProduct(name, type);
 
   if (isPending) {
     return (

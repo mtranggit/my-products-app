@@ -1,17 +1,14 @@
+import {useProductsStore} from "../../store/productsStore";
 import styles from "./FilterInput.module.css";
 
-export function FilterInput({
-  label = "Filter",
-  value,
-  onFilter,
-}: {
-  label?: string;
-  value: string;
-  onFilter: (value: string) => void;
-}) {
+export function FilterInput({label = "Filter"}: {label?: string}) {
   const handleFilter = (value: string) => {
-    onFilter(value);
+    setProductType(value);
   };
+
+  const value = useProductsStore((state) => state.type);
+  const setProductType = useProductsStore((state) => state.setProductType);
+
   return (
     <label htmlFor="select_category">
       <span className={styles.label}>{label}:</span>
