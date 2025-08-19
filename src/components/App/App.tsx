@@ -9,18 +9,18 @@ const queryClient = new QueryClient();
 
 function ProductsApp() {
   return (
-    <main className={styles.main_wrapper}>
-      <div className={styles.main_content}>
-        <header className={styles.header}>
-          <div className={styles.title}>Products</div>
-          <div className={styles.search_filter}>
-            <SearchInput placeholder="Search product name" />
-            <FilterInput />
-          </div>
-        </header>
+    <div className={styles.wrapper}>
+      <header className={styles.header}>
+        <h1>Products</h1>
+        <div className={styles.search_filter}>
+          <SearchInput placeholder="Search product name" />
+          <FilterInput />
+        </div>
+      </header>
+      <main>
         <ProductList />
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
 
