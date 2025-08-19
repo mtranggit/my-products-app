@@ -1,5 +1,6 @@
 import {act} from "react";
 
+import {useProductsStore} from "../../store/productsStore";
 import {SearchInput} from "./SearchInput";
 import {afterEach, beforeEach, describe, expect, it, vi} from "vitest";
 import {cleanup, fireEvent, render, screen} from "@testing-library/react";
@@ -16,33 +17,33 @@ describe("SearchInput", () => {
   });
 
   it("renders with placeholder and default term", () => {
-    const onSearch = vi.fn();
-    render(<SearchInput placeholder="Search..." term="initial" onSearch={onSearch} />);
+    // const onSearch = vi.fn();
+    render(<SearchInput placeholder="Search..." />);
     const input = screen.getByPlaceholderText("Search...") as HTMLInputElement;
     expect(input).toBeTruthy();
-    expect(input.value).toBe("initial");
+    expect(input.value).toBe("");
   });
 
-  it("calls onSearch once after debounce delay with the latest value", () => {
-    const onSearch = vi.fn();
-    render(<SearchInput placeholder="Search..." term="" onSearch={onSearch} />);
+  it("calls setProductName once after debounce delay with the latest value", () => {
+    const spySetProductName = vi.spyOn(useProductsStore.getState(), "setProductName");
+    render(<SearchInput placeholder="Search..." />);
     const input = screen.getByPlaceholderText("Search...") as HTMLInputElement;
 
     // single change -> should call after debounce
     fireEvent.change(input, {target: {value: "abc"}});
-    expect(onSearch).not.toHaveBeenCalled();
+    expect(spySetProductName).not.toHaveBeenCalled();
 
     act(() => {
       vi.advanceTimersByTime(300);
     });
 
-    expect(onSearch).toHaveBeenCalledTimes(1);
-    expect(onSearch).toHaveBeenCalledWith("abc");
+    expect(spySetProductName).toHaveBeenCalledTimes(1);
+    expect(spySetProductName).toHaveBeenCalledWith("abc");
   });
 
   it("debounces rapid input changes and only calls onSearch for the last value", () => {
-    const onSearch = vi.fn();
-    render(<SearchInput placeholder="Search..." term="" onSearch={onSearch} />);
+    const spySetProductName = vi.spyOn(useProductsStore.getState(), "setProductName");
+    render(<SearchInput placeholder="Search..." />);
     const input = screen.getByPlaceholderText("Search...") as HTMLInputElement;
 
     // rapid changes
@@ -51,13 +52,13 @@ describe("SearchInput", () => {
     fireEvent.change(input, {target: {value: "abc"}});
 
     // still not called immediately
-    expect(onSearch).not.toHaveBeenCalled();
+    expect(spySetProductName).not.toHaveBeenCalled();
 
     act(() => {
       vi.advanceTimersByTime(300);
     });
 
-    expect(onSearch).toHaveBeenCalledTimes(1);
-    expect(onSearch).toHaveBeenCalledWith("abc");
+    expect(spySetProductName).toHaveBeenCalledTimes(1);
+    expect(spySetProductName).toHaveBeenCalledWith("abc");
   });
 });

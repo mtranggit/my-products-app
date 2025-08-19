@@ -1,20 +1,21 @@
+import {useProductsStore} from "../../store/productsStore";
 import {FilterInput} from "./FilterInput";
 import {describe, expect, it, vi} from "vitest";
 import {fireEvent, render, screen} from "@testing-library/react";
 
 describe("FilterInput", () => {
   it("renders with default label", () => {
-    render(<FilterInput value="" onFilter={() => {}} />);
+    render(<FilterInput />);
     expect(screen.getByText("Filter:")).toBeInTheDocument();
   });
 
   it("renders with custom label", () => {
-    render(<FilterInput label="Category" value="" onFilter={() => {}} />);
+    render(<FilterInput label="Category" />);
     expect(screen.getByText("Category:")).toBeInTheDocument();
   });
 
   it("renders all expected options", () => {
-    render(<FilterInput value="" onFilter={() => {}} />);
+    render(<FilterInput />);
     const select = screen.getByRole("combobox");
     expect(select).toBeInTheDocument();
 
@@ -24,26 +25,32 @@ describe("FilterInput", () => {
     });
   });
 
-  it("calls onFilter when selection changes", () => {
-    const mockOnFilter = vi.fn();
-    render(<FilterInput value="" onFilter={mockOnFilter} />);
+  it("calls setProductType when selection changes", () => {
+    const spySetProductType = vi.spyOn(useProductsStore.getState(), "setProductType");
+    render(<FilterInput />);
 
     const select = screen.getByRole("combobox");
     fireEvent.change(select, {target: {value: "beer"}});
 
-    expect(mockOnFilter).toHaveBeenCalledTimes(1);
-    expect(mockOnFilter).toHaveBeenCalledWith("beer");
+    expect(spySetProductType).toHaveBeenCalledTimes(1);
+    expect(spySetProductType).toHaveBeenCalledWith("beer");
   });
 
-  it("displays the initial value correctly", () => {
-    render(<FilterInput value="wine" onFilter={() => {}} />);
+  it("displays the selected value correctly", () => {
+    render(<FilterInput />);
     const select = screen.getByRole("combobox") as HTMLSelectElement;
+    fireEvent.change(select, {target: {value: "wine"}});
+    expect(select.value).toBe("wine");
+    fireEvent.change(select, {target: {value: "wine"}});
     expect(select.value).toBe("wine");
   });
 
-  it('has "All" option with empty value', () => {
-    render(<FilterInput value="" onFilter={() => {}} />);
+  it('displays "All" option with empty value', () => {
+    render(<FilterInput />);
+    const select = screen.getByRole("combobox") as HTMLSelectElement;
+    fireEvent.change(select, {target: {value: ""}});
     const allOption = screen.getByText("All") as HTMLOptionElement;
+    expect(allOption).toBeInTheDocument();
     expect(allOption.value).toBe("");
   });
 });
